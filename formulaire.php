@@ -10,6 +10,8 @@ afficher("Formulaire");
 afficher("Ceci est un formaire de connexion");
 
 afficher("carré de 5 " . carre(5));
+afficher("Le nombre pi vaut :" .PI);
+
 afficher("Affichage du formulaire : ");
 include "vues/form.html.php";
 

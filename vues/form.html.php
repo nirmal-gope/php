@@ -1,4 +1,4 @@
-<form >
+<form action="connexion2.php" method="post">
     <div class="form-group">
         <label for="pseudo">Pseudo</label>
         <input type="text" name="pseudo" class="form-control">
