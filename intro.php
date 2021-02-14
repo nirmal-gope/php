@@ -526,7 +526,7 @@
 
         function carre(int $nb) {
             return $nb * $nb;
-            echo "Cette instruction ne sera jamais exécutée parce qu'elle est aprés le 'return' ";
+            echo "Cette instruction ne sera jamais exécutée parce qu'elle est après le 'return'";
         }
 
         $a = 5;
