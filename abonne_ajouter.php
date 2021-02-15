@@ -1,18 +1,22 @@
 <?php
 include "includes/init.inc.php";
 // phpinfo();
-
-if( $_POST ){
-    extract($_POST);    
+if (isAdmin()) {
+    $_SESSION["messages"]["danger"][] = "Accès interdit !";
+    redirection("index.php");
+    exit;
+}
+if ($_POST) {
+    extract($_POST);
     /*
     $pseudo = $_POST["pseudo"];
     $mdp = $_POST["mdp"];
     */
     $msgErreur = "";
-    if (isset($pseudo) && isset($mdp)){
+    if (isset($pseudo) && isset($mdp)) {
         /* La fonction isset() renvoie TRUE si la variable passée en paramètre existe */
-        if( strlen($pseudo) >= 4 && strlen($pseudo) <= 30 ){
-            if(strlen($mdp) >= 4 && strlen($mdp) <= 10){
+        if (strlen($pseudo) >= 4 && strlen($pseudo) <= 30) {
+            if (strlen($mdp) >= 4 && strlen($mdp) <= 10) {
                 $pseudo = htmlentities(addslashes($pseudo));  // Attention : htmlentities et addslashes modifie $pseudo et donc sa taille
                 // Il NE FAUT PAS utiliser ces fonctions sur le mot de passe
                 $mdp = password_hash($mdp, PASSWORD_DEFAULT);
@@ -28,7 +32,6 @@ if( $_POST ){
                     $resultat = $pdostatement->execute();
                 } catch (\Throwable $th) {
                     $_SESSION["messages"]["danger"][] = "Erreur BDD";
-
                 }
 
                 /*
@@ -40,7 +43,7 @@ if( $_POST ){
                     boolean     : FALSE
                     ATTENTION : un objet n'est jamais considéré comme FALSE
                 */
-                if( !empty($resultat) ){
+                if (!empty($resultat)) {
                     $_SESSION["messages"]["success"][]  = "Le nouvel abonné a bien été ajouté dans la base de données";
                     header("Location: abonne_liste.php");
                     exit;
@@ -61,4 +64,3 @@ if( $_POST ){
 include "vues/header.html.php";
 include "vues/form_abonne.html.php";
 include "vues/footer.html.php";
-

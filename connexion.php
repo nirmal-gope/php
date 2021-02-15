@@ -1,9 +1,9 @@
 <?php
 include "includes/init.inc.php";
 
-if( $_POST ){
+if ($_POST) {
     extract($_POST);
-    if( !empty($pseudo) && !empty($mdp) ){
+    if (!empty($pseudo) && !empty($mdp)) {
         /* Pour récupérer, en base de données, l'abonné dont le pseudo a été tapé dans le formulaire 
             on doit exécuter la requête SQL : SELECT * FROM abonne WHERE pseudo = '$pseudo'
             La méthode prepare() de l'objet $pdo permet d'écrire une requête paramétrée (= au lieu de mettre directement
@@ -20,14 +20,15 @@ if( $_POST ){
         $resultat = $pdostatement->execute();
 
         /*  La méthode rowCount() retourne le nombre de lignes renvoyées par la requête SQL : ici soit 0 soit 1 */
-        if($resultat && $pdostatement->rowCount()){
+        if ($resultat && $pdostatement->rowCount()) {
             /* Les résultats de la requête sont dans l'objet $pdostatement. On peut les récupérer avec 
                     la méthode fetch() : pour récupérer un enregistrement 
                     la méthode fetchAll() : pour récupérer un array de tous les enregistrements */
             $abonne = $pdostatement->fetch(PDO::FETCH_ASSOC);
-            if( password_verify($mdp, $abonne["mdp"]) ){
+            if (password_verify($mdp, $abonne["mdp"])) {
                 $_SESSION["messages"]["success"][]  = "Bonjour " . $abonne["pseudo"] .  ", vous êtes connecté";
                 $_SESSION["abonne"] = $abonne;
+                redirection("profil.php");
             } else {
                 $_SESSION["messages"]["danger"][] = "Le mot de passe ne correspond pas !";
             }
