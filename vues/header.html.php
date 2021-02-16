@@ -21,34 +21,48 @@
           <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
-          <?php if (isAdmin()) : ?>
+
+          <?php if( isAdmin() ): ?>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Abonnés
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="abonne_liste.php">Liste</a>
-                <a class="dropdown-item" href="abonne_ajouter.php">Ajouter</a>
+                <a class="dropdown-item" href="abonne_liste.php">Abonne Liste</a>
+                <a class="dropdown-item" href="abonne_ajouter.php">Abonne Ajouter</a>
+                <a class="dropdown-item" href="livre_liste.php">Livre Liste</a>
+                <a class="dropdown-item" href="livre_ajouter.php">Livre Ajouter</a>
               </div>
             </li>
           <?php endif; ?>
-          <!-Je peux faire une affectation dans la condition du if PHP va d'abord évaluer l'affectation (donc $abonne sera soit un array soit false) ensuit PHP va évaluer la condition : if($abonne) Je peux donc utiliser la variable $abonne dans le code du 'if' ->
-            <?php if ($abonneConnecte = isConnected()) : ?>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
+
+          <!-- Je peux faire une affectation dans la condition du if
+               PHP va d'abord évaluer l'affectation (donc $abonne sera soit un array soit false)
+               ensuite PHP va évaluer la condition : if($abonne)
+               Je peux donc utiliser la variable $abonne dans le code du 'if'
+          -->
+          <?php if( $abonneConnecte = isConnected() ) : ?>
+
+            <li class="nav-item">
+              <a class="nav-link" href="profil.php">
                   <?= $abonneConnecte["pseudo"] ?>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="deconnexion.php">
-                  Déconnexion
-                </a>
-              </li>
-            <?php else : ?>
-              <li class="nav-item">
-                <a class="nav-link" href="connexion.php">Connexion</a>
-              </li>
-            <?php endif; ?>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="deconnexion.php">
+                Déconnexion
+              </a>
+            </li>
+
+          <?php else: ?>
+
+            <li class="nav-item">
+              <a class="nav-link" href="connexion.php">Connexion</a>
+            </li>
+
+          <?php endif; ?>
+
+
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -57,18 +71,18 @@
       </div>
     </nav>
 
-    <?php
-    if (isset($_SESSION["messages"])) {
-      foreach ($_SESSION["messages"] as $type => $messages) {
-        foreach ($messages as $msg) {
-          echo "<div class='alert alert-$type'>$msg</div>";
-        }
+<?php
+  if( isset($_SESSION["messages"]) ){
+    foreach($_SESSION["messages"] as $type => $messages){
+      foreach($messages as $msg){
+        echo "<div class='alert alert-$type'>$msg</div>";
       }
     }
-    //$_SESSION["messages"] = [];
-    /* Pour supprimer une valeur précise d'un tableau, on peut utiliser la fonction unset($variable) 
+  }
+  //$_SESSION["messages"] = [];
+  /* Pour supprimer une valeur précise d'un tableau, on peut utiliser la fonction unset($variable)
     La fonction unset détruit une variable. Si on met une variable array avec un indice, seul cet indice est
     supprimé. Par exemple unset($tableau[2]) ne détruit que la 3ième valeur de $tableau.
   */
-    unset($_SESSION["messages"]);
-    ?>
+  unset($_SESSION["messages"]);
+?>

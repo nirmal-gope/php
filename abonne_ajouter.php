@@ -1,18 +1,18 @@
 <?php
-include "includes/init.inc.php";
-// phpinfo();
-if (isAdmin()) {
-    $_SESSION["messages"]["danger"][] = "Accès interdit !";
-    redirection("index.php");
-    exit;
+
+include 'includes/init.inc.php';
+if (!isAdmin()) {
+    $_SESSION['messages']['danger'][] = 'Accès interdit !';
+    redirection('index.php');
 }
-if ($_POST) {
+
+if($_POST) {
     extract($_POST);
+
     /*
     $pseudo = $_POST["pseudo"];
     $mdp = $_POST["mdp"];
     */
-    $msgErreur = "";
     if (isset($pseudo) && isset($mdp)) {
         /* La fonction isset() renvoie TRUE si la variable passée en paramètre existe */
         if (strlen($pseudo) >= 4 && strlen($pseudo) <= 30) {
@@ -22,16 +22,16 @@ if ($_POST) {
                 $mdp = password_hash($mdp, PASSWORD_DEFAULT);
                 // $requete = $pdo->exec("INSERT INTO abonne (pseudo, mdp) VALUES ('$pseudo', '$mdp')");
 
-                /* Une requête préparée est une requête qui n'est pas exécutée immédiatement. On peut utiliser des paramètres dans ce 
+                /* Une requête préparée est une requête qui n'est pas exécutée immédiatement. On peut utiliser des paramètres dans ce
                     genre de requête SQL. Un paramètre est noté : suivi du nom du paramètre  */
-                $pdostatement = $pdo->prepare("INSERT INTO abonne (pseudo, mdp) VALUES (:pseudo, :mdp)");
-                $pdostatement->bindValue(":pseudo", $pseudo);
-                $pdostatement->bindValue(":mdp", $mdp);
-
+                $pdostatement = $pdo->prepare('INSERT INTO abonne (pseudo, mdp, niveau) VALUES (:pseudo, :mdp, :niveau)');
+                $pdostatement->bindValue(':pseudo', $pseudo);
+                $pdostatement->bindValue(':mdp', $mdp);
+                $pdostatement->bindValue(':niveau', $niveau);
                 try {
                     $resultat = $pdostatement->execute();
                 } catch (\Throwable $th) {
-                    $_SESSION["messages"]["danger"][] = "Erreur BDD";
+                    $_SESSION['messages']['danger'][] = 'Erreur BDD';
                 }
 
                 /*
@@ -44,23 +44,23 @@ if ($_POST) {
                     ATTENTION : un objet n'est jamais considéré comme FALSE
                 */
                 if (!empty($resultat)) {
-                    $_SESSION["messages"]["success"][]  = "Le nouvel abonné a bien été ajouté dans la base de données";
-                    header("Location: abonne_liste.php");
+                    $_SESSION['messages']['success'][] = 'Le nouvel abonné a bien été ajouté dans la base de données';
+                    header('Location: abonne_liste.php');
                     exit;
                 } else {
-                    $_SESSION["messages"]["danger"][] = "Erreur lors de l'insertion en BDD";
+                    $_SESSION['messages']['danger'][] = "Erreur lors de l'insertion en BDD";
                 }
             } else {
-                $_SESSION["messages"]["danger"][]  = "Le mot de passe doit comporter entre 4 et 10 caractères";
+                $_SESSION['messages']['danger'][] = 'Le mot de passe doit comporter entre 4 et 10 caractères';
             }
         } else {
-            $_SESSION["messages"]["danger"][]  = "Le pseudo doit comporter entre 4 et 30 caractères";
+            $_SESSION['messages']['danger'][] = 'Le pseudo doit comporter entre 4 et 30 caractères';
         }
     } else {
-        $_SESSION["messages"]["danger"][]  = "Formulaire invalide";
+        $_SESSION['messages']['danger'][] = 'Formulaire invalide';
     }
 }
 
-include "vues/header.html.php";
-include "vues/form_abonne.html.php";
-include "vues/footer.html.php";
+include 'vues/header.html.php';
+include 'vues/form_abonne.html.php';
+include 'vues/footer.html.php';

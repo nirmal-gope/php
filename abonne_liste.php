@@ -1,13 +1,11 @@
 <?php
 include "includes/init.inc.php";
-if (isAdmin()) {
+if (!isAdmin()) {
     $_SESSION["messages"]["danger"][] = "Accès interdit !";
     redirection("index.php");
-    exit;
 }
 
 include "vues/header.html.php";
-
 
 $pdostatement = $pdo->query("SELECT * FROM abonne");
 if ($pdostatement && $pdostatement->rowCount() > 0) {
@@ -32,9 +30,26 @@ if ($pdostatement && $pdostatement->rowCount() > 0) {
             <tr>
                 <td><?= $abonne["id"] ?></td>
                 <td><?= $abonne["pseudo"] ?></td>
-                <td><?= $abonne["niveau"] >= 50 ? "Administrateur" : "Lecteur" ?></td>
+                <td>
+                    <?php
+                    switch ($abonne["niveau"]) {
+                        case 10:
+                            echo "Lecteur";
+                            break;
+                        case 30:
+                            echo "Bibliothécaire";
+                            break;
+                        case 50:
+                            echo "Administrateur";
+                            break;
+                        default:
+                            echo "Niveau inconnu";
+                    }
+                    ?>
+                </td>
                 <td>
                     <a href="abonne_modifier.php?id=<?= $abonne["id"] ?>">Modifier</a>
+                    <a href="abonne_supprimer.php?id=<?= $abonne["id"] ?>">Supprimer</a>
                 </td>
             </tr>
         <?php endforeach; ?>
