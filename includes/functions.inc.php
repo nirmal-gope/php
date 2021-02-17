@@ -116,3 +116,11 @@ function selectAll($tableName)
     // }
     return $pdostatement !== FALSE ? $pdostatement->fetchAll(PDO::FETCH_ASSOC) : $pdostatement;
 }
+/**Faire une fonction qui retourene un enregistrement selon une table dinnée et un identifiant 
+ * par exemple:
+ * selectionne("livre", 2) retourne le livre dont l'id vaut 2
+ * 
+ */
+function selectById($tableName, $id)
+{
+#code...}
