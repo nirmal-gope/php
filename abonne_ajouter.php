@@ -12,6 +12,12 @@ if($_POST) {
     /*
     $pseudo = $_POST["pseudo"];
     $mdp = $_POST["mdp"];
+
+        La fonction extract($tableau) crée autant de variables qu'il y a d'indices dans un tableau associatif
+    (rappel : un tableau associatif a des indices en string au lieu des indices numériques)
+    Les variables auront le nom des indices et la valeur correspondante dans le tableau.
+    extract ne peut être utilisé qu'avec un tableau associatif parce qu'on NE PEUT PAS DÉCLARER des variables
+    commençant par un chiffre.
     */
     if (isset($pseudo) && isset($mdp)) {
         /* La fonction isset() renvoie TRUE si la variable passée en paramètre existe */

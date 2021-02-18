@@ -10,8 +10,8 @@ include "vues/header.html.php";
 $pdostatement = $pdo->query("SELECT * FROM livre");
 if ($pdostatement && $pdostatement->rowCount() > 0) {
     $livres = $pdostatement->fetchAll(PDO::FETCH_ASSOC);
-}
 
+}
 ?>
 
 <table class="table table-bordered text-center">
@@ -29,7 +29,7 @@ if ($pdostatement && $pdostatement->rowCount() > 0) {
                 <td><?= $livre["id"] ?></td>
                 <td><?= $livre["titre"] ?></td>
                 <td><?= $livre["auteur"] ?></td>
-                <td><img class=" miniature" src="images/<?= $livre["couverture"] ?>" alt="image">
+                <td><img class="miniature" src="uploads/<?= $livre["couverture"] ?>" alt="image">
                 </td>
                 <td>
                     <a class="btn btn-primary" href=" livre_modifier.php?id=<?= $livre["id"] ?>">Modifier</a>

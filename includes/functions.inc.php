@@ -44,8 +44,8 @@ function dd($variable)
     exit;
 }
 
-/* EXO : créer une fonction qui renvoie TRUE si un abonné est connecté 
-                                        FALSE si aucun abonné n'est connecté 
+/* EXO : créer une fonction qui renvoie TRUE si un abonné est connecté
+                                        FALSE si aucun abonné n'est connecté
 empty(0) retourne TRUE
 empty(-1) retourne FALSE
 
@@ -102,6 +102,8 @@ function isAdmin()
         return false;
     }
 }
+
+
 /* BASE DE DONNES
 Retourne un array contenant tous les enregistrements d'une table de la base de données
 */
@@ -109,18 +111,66 @@ function selectAll($tableName)
 {
     global $pdo; //making $pdo variable global to local
     $pdostatement = $pdo->query("SELECT * FROM " . $tableName);
-    // if ($pdostatement !== FALSE) {
-    //     return $pdostatement->fetchAll(PDO::FETCH_ASSOC);
-    // } else {
-    //     return false;
-    // }
+    /*
+    if ($pdostatement !== FALSE) {
+        return $pdostatement->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        return false;
+    }
+*/
     return $pdostatement !== FALSE ? $pdostatement->fetchAll(PDO::FETCH_ASSOC) : $pdostatement;
 }
-/**Faire une fonction qui retourene un enregistrement selon une table dinnée et un identifiant 
+
+
+/**Faire une fonction qui retourne un enregistrement selon une table dinnée et un identifiant
  * par exemple:
  * selectionne("livre", 2) retourne le livre dont l'id vaut 2
- * 
+ *
  */
 function selectById($tableName, $id)
 {
-#code...}
+    global $pdo;
+    $pdostatement = $pdo->query("SELECT * FROM  $tableName WHERE id = $id");
+    if($pdostatement){
+        return $pdostatement->fetch(PDO::FETCH_ASSOC);
+    }else{
+        return false;
+    }
+    /*
+    return $pdostatement !== FALSE ? $pdostatement->fetch(PDO::FETCH_ASSOC) : $pdostatement;
+    */
+}
+
+
+/*Message d'alerte
+* @param string $type Equivalent à la classe Bootstrap
+* @param string $message message à afficher
+*/
+function ajouterMessage($type, $message){
+$_SESSION["messages"][$type][] = $message;
+}
+
+/**
+ * Liste des messages d'alerte en attente
+ * @return array
+ */
+
+function messages($type){
+    /*
+    if(!empty($_SESSION["messages"][$type])){
+        return $_SESSION["message"][$type];
+    }else{
+        return [];
+    }
+    */
+    return !empty($_SESSION["messages"][$type]) ? $_SESSION["messages"][$type] : [];
+}
+
+function livresNonRendus(){
+    global $pdo;
+    $texteRequete = "SELECT l.id
+    FROM livre l JOIN emprunt e ON l.id = e.livre_id
+     date_retour IS NULL";
+    $pdostatement = $pdo->query($texteRequete);
+    return $pdostatement->fetchAll(PDO::FETCH_ASSOC);
+}

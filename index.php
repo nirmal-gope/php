@@ -18,7 +18,7 @@ if ($pdostatement && $pdostatement->rowCount() > 0) {
             <h4 class="card-header"><?= $livre["titre"] ?></h4>
             <div class="row  couverture">
                 <div class="col-3 d-flex align-items-center">
-                    <img class="p-1 miniature" src="images/<?= $livre["couverture"] ?>" alt="pas de couverture">
+                    <img class="p-1 miniature" src="uploads/<?= $livre["couverture"] ?>" alt="pas de couverture">
                 </div>
                 <div class="col-9">
                     <div class="card-body">
@@ -27,9 +27,10 @@ if ($pdostatement && $pdostatement->rowCount() > 0) {
                 </div>
             </div>
             <div class="card-footer text-center">
-                <a href="" class="card-link">
-                    <i class="fa fa-book"></i> Voir plus
+                <a href="emprunter_livre.php?id=<?= $livre["id"] ?>" class="card-link">
+                    <i class="fa fa-book"></i> Emprunter
                 </a>
+                <!-- Si le livre est dans la liste des livres non rendus, ne pas afficher le lien pour emprunter-->
             </div>
         </div>
     <?php endforeach; ?>

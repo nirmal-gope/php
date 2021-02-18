@@ -81,7 +81,7 @@ if ($req && $req->rowCount() > 0) {
 
     </div>
 </div>
-<button type="button" class="btn btn-outline-success col mt-5">Ajouter un nouveau restaurant</button>
+<button type="button" class="btn btn-outline-success col mt-5"><a href="ajouter_restaurant.php">Ajouter un nouveau restaurant</a></button>
 
 <?php
 include 'vues/footer.html.php'; // Appel du bas du site

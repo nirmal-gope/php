@@ -20,14 +20,15 @@ if ($_POST) {
         if (empty($_SESSION["messages"]["danger"])) {
             if (!empty($_FILES["couverture"]["name"])) {
                 //la fonction uniqid() permet de générer un string unique
-                $nomFichier = uniqid() . $_FILES["couverture"]["name"];
+                $fileName = uniqid() . $_FILES["couverture"]["name"];
+                $tempFile = $_FILES["couverture"]["tmp_name"];
                 // _DIR_ est une constante magique : la valeur est le chemin complet du dossier
                 //dans lequel se trouve le fichier actuel
-                $dossier = __DIR__ . "/images";
-                $imageSaved = copy($_FILES["couverture"]["tmp_name"], $dossier . "/" . $nomFichier);
-                if ($imageSaved) {
+                $uploadFolder = __DIR__ . "/uploads";
+                $fileMove = copy($tempFile, $uploadFolder . "/" . $fileName);
+                if ($fileMove) {
                     $_SESSION["messages"]["success"][] = "L'image a bien été uploadée";
-                    $couverture = $nomFichier;
+                    $couverture = $fileName;
                 } else {
                     $_SESSION["messages"]["danger"][] = "Erreur lors de l'enregistrement de l'image";
                 }

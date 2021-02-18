@@ -4,9 +4,8 @@ if (!isAdmin()) {
     $_SESSION["messages"]["danger"][] = "Accès interdit !";
     redirection("index.php");
 }
-
 include "vues/header.html.php";
-
+/*
 $pdostatement = $pdo->query("SELECT * FROM abonne");
 if ($pdostatement && $pdostatement->rowCount() > 0) {
     // La méthode fetchAll() pour récupérer toutes les lignes de la requête
@@ -14,7 +13,8 @@ if ($pdostatement && $pdostatement->rowCount() > 0) {
     $abonnes = $pdostatement->fetchAll(PDO::FETCH_ASSOC);
     // echo "<pre>"; var_dump($abonnes); echo "</pre>";
 }
-
+*/
+$abonnes = selectAll("abonne");
 ?>
 
 <table class="table table-bordered table-striped">
