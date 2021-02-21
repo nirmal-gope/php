@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <div class="container-fluid">
+  <div class="container-fluid p-0">
     <div>
       <img src="img/banner.jpg" alt="banner" width="100%">
     </div>

@@ -1,4 +1,10 @@
-<h2 class="alert alert-primary my-4">Ajouter à la liste des véhicule</h2>
+<h1>
+    <?php if (empty($titre)) : ?>
+        Ajouter à la liste des véhicule
+    <?php else : ?>
+        <?= $titre; ?>
+    <?php endif; ?>
+</h1>
 
 <form method="POST" enctype="multipart/form-data">
     <div class="form-group">
@@ -22,5 +28,8 @@
         <label class="custom-file-label" for="fiche">Fiche du véhicule</label>
     </div>
 
-    <button type="submit" class="btn btn-primary">Ajouter</button>
+    <button type="submit" class="btn btn-primary" name="submit">
+        <?= empty($voiture) ? 'Enregistrer' : (!empty($mode) && $mode == 'suppression' ? 'Supprimer' : 'Modifier'); ?>
+    </button>
+    <a href="gestion_voitures.php" class="btn btn-danger">Annuler</a>
 </form>

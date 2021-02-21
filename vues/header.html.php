@@ -70,16 +70,11 @@
                 Déconnexion
               </a>
             </li>
-
           <?php else : ?>
-
             <li class="nav-item">
               <a class="nav-link" href="connexion.php">Connexion</a>
             </li>
-
           <?php endif; ?>
-
-
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -92,7 +87,11 @@
     if (isset($_SESSION["messages"])) {
       foreach ($_SESSION["messages"] as $type => $messages) {
         foreach ($messages as $msg) {
-          echo "<div class='alert alert-$type'>$msg</div>";
+          echo "<div class='alert alert-$type alert-dismissible fade show' role='alert'>$msg
+                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                        </button>
+                        </div>";
         }
       }
     }

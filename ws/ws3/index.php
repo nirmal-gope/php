@@ -5,9 +5,9 @@ $voitures = selectAll("voitures");
 ?>
 
 <h2 class="alert alert-primary my-4 text-dark">La liste des voitures disponibles</h2>
-<div class="card-columns">
-    <?php foreach ($voitures as $voiture) :  ?>
 
+<div  class="card-columns">
+    <?php foreach ($voitures as $voiture) :  ?>
         <div class="card">
             <img class="card-img-top" src="uploads/<?= $voiture["photo"] ?>" alt="voiture-image">
             <div class="card-body">
@@ -18,7 +18,6 @@ $voitures = selectAll("voitures");
             </div>
         </div>
     <?php endforeach; ?>
-
 </div>
 
 

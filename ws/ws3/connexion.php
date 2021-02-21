@@ -10,8 +10,8 @@ if ($_POST) {
         if ($resultat && $pdostatement->rowCount()) {
             $membre = $pdostatement->fetch(PDO::FETCH_ASSOC);
             if (password_verify($mdp, $membre["mdp"])) {
-                $_SESSION["messages"]["success"][]  = "Bonjour " . $abonne["pseudo"] .  ", vous êtes connecté";
-                $_SESSION["abonne"] = $membre;
+                $_SESSION["messages"]["success"][]  = "Bonjour " . $membre["pseudo"] .  ", vous êtes connecté";
+                $_SESSION["membre"] = $membre;
                 redirection("profil.php");
             } else {
                 $_SESSION["messages"]["danger"][] = "Le mot de passe ne correspond pas !";
@@ -25,5 +25,5 @@ if ($_POST) {
 }
 
 include "vues/header.html.php";
-include "vues/form.html.php";
+include "vues/form_connexion.html.php";
 include "vues/footer.html.php";

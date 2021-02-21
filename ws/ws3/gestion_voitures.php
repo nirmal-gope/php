@@ -4,7 +4,7 @@ include "vues/header.html.php";
 $Voitures = selectAll("voitures");
 ?>
 
-<table class="table table-bordered text-center table-hover my-4">
+<table class="table table-bordered table-responsive-md text-center table-hover my-4">
     <thead class="table-primary">
         <th>ID</th>
         <th>Marque</th>
@@ -27,13 +27,12 @@ $Voitures = selectAll("voitures");
                 <td><a href="uploads/<?= $voiture["fiche"] ?>" class="btn btn-secondary">Télécharger la détailée</a>
                 </td>
                 <td>
-                    <a class=" btn btn-primary m-1" href="#">Modifier</a>
-                    <a class="btn btn-danger m-1" href="#">Supprimer</a>
+                    <a class="btn btn-primary m-1" href="annonce_modifier.php?id=<?= $voiture["id"] ?>">Modifier</a>
+                    <a class="btn btn-danger m-1" href="annonce_supprimer.php?id=<?= $voiture["id"] ?>">Supprimer</a>
                 </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
-
 
 <?php include "vues/footer.html.php";

@@ -1,7 +1,7 @@
 <?php
 include "includes/init.inc.php";
 include "vues/header.html.php";
-$abonne = isConnected();
+$membre = isConnected();
 if (empty($membre)) {
     header("Location: connexion.php");
     exit;

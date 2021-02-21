@@ -5,22 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Annonce Voiture</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/0498bcf658.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
-    <div class="container-fluid">
-        <nav class="navbar alert navbar-light navbar-expand-lg m-0" style="background-color: #e3f2fd;">
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-light navbar-expand-xl " style="background-color: #ffc324;">
             <a class="navbar-brand" href="index.php">Consession Voitures</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="ajouter_voiture.php">Publier une annonce<span class="sr-only">(current)</span></a>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="ajouter_voiture.php">Publier une annonce</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="gestion_voitures.php">Gestion des voitures</a>
@@ -58,15 +57,46 @@
                 </ul>
             </div>
         </nav>
-        <div class="mb-3">
-            <img src="uploads/bg.jpg" alt="banner" width="100%">
+        <!-- slider begins-->
+        <div id="banner" class="carousel slide mb-3" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#banner" data-slide-to="0" class="active"></li>
+                <li data-target="#banner" data-slide-to="1"></li>
+                <li data-target="#banner" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="uploads/bg.jpg" class="d-block w-100"  alt="banner">
+                </div>
+                <div class="carousel-item">
+                    <img src="uploads/v1.png" class="d-block w-100" alt="banner">
+                </div>
+                <div class="carousel-item">
+                    <img src="uploads/v2.png" class="d-block w-100"  alt="banner">
+                </div>
+                <div class="carousel-item">
+                    <img src="uploads/v3.png" class="d-block w-100" alt="banner">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#banner" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </a>
+            <a class="carousel-control-next" href="#banner" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </a>
         </div>
+        <!-- slider ends-->
         <div class="container">
+
             <?php
             if (isset($_SESSION["messages"])) {
                 foreach ($_SESSION["messages"] as $type => $messages) {
                     foreach ($messages as $msg) {
-                        echo "<div class='alert alert-$type'>$msg</div>";
+                        echo "<div class='alert alert-$type alert-dismissible fade show' role='alert'>$msg
+                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                        </button>
+                        </div>";
                     }
                 }
             }

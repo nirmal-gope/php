@@ -18,20 +18,26 @@ function messages($type)
 
 function isConnected()
 {
-    return !empty($_SESSION["abonne"]) ? $_SESSION["abonne"] : false;
+    return !empty($_SESSION["membre"]) ? $_SESSION["membre"] : false;
 }
 
 function isAdmin()
 {
-    $abonne = isConnected();
-    if ($abonne && $abonne["sattut"] >= 50) {
-        return $abonne;
+    $membre = isConnected();
+    if ($membre && $membre["sattut"] >= 50) {
+        return $membre;
+    } else {
+        return false;
+    }
+}
+function isAbonne()
+{
+    $membre = isConnected();
+    if ($membre && $membre["sattut"] = 10) {
+        return $membre;
     } else {
         return false;
     }
 }
 
-function ajouterMessage($type, $message)
-{
-    $_SESSION["messages"][$type][] = $message;
-}
+

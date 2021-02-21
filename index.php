@@ -13,12 +13,11 @@ if ($pdostatement && $pdostatement->rowCount() > 0) {
 
 <div class="card-columns">
     <?php foreach ($livres as $livre) :  ?>
-
         <div class="card my-3">
             <h4 class="card-header"><?= $livre["titre"] ?></h4>
-            <div class="row  couverture">
+            <div class="row">
                 <div class="col-3 d-flex align-items-center">
-                    <img class="p-1 miniature" src="uploads/<?= $livre["couverture"] ?>" alt="pas de couverture">
+                    <img class="p-1 miniature" src="uploads/<?= $livre["couverture"] ?>" alt="couverture">
                 </div>
                 <div class="col-9">
                     <div class="card-body">
