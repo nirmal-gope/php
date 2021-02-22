@@ -8,10 +8,10 @@ if ($_POST) {
         if (strlen($marque) > 15) {
             $_SESSION["messages"]["danger"][] = "Le marque ne doit pas dépasser 20 caractères";
         }
-        if (strlen($kilometrage) < 1 || strlen($kilometrage) > 6) {
+        if ($kilometrage >= 1 && $kilometrage <= 6) {
             $_SESSION["messages"]["danger"][] = "Kilometrage doit comporter entre 1 et 6 caractères";
         }
-        if (strlen($tarif) < 1 || strlen($tarif) > 3) {
+        if ($tarif >= 1 && $tarif <= 6) {
             $_SESSION["messages"]["danger"][] = "Tariff doit comporter entre 1 et 6 caractères";
         }
         if (empty($_SESSION["messages"]["danger"])) {
