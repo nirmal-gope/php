@@ -1,19 +1,20 @@
 <?php
+
 if (!empty($_POST["nombre"])) {
     echo "vous avez tapé le nombre :" . $_POST["nombre"];
 } else {
     echo  "vous devez taper un nombre dans le formulaire";
     echo "<a href = 'index.php'>Retour</a>";
 }
+
+$textelong = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus neque minima nulla omnis, doloribus earum perferendis, in illo repellendus dolore quam temporibus placeat sequi nam totam fugit. Dolore, ut sapiente! ";
+
 ?>
-<h1 class="text-center">Devinez un nombre</h1>
-<form method="POST" action="index.php" class="p-5">
-    <div class="form-group">
-        <libel for="nombre">Tapez un nombre entre 1 et 10 : </libel>
-        <input type="text" name="nombre" id="nombre" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-primary">Envoyer</button>
-</form>
+<h2>Texte entier</h2>
+<?= $texteLong ?>
+
+<h2>Texte raccourci</h2>
+<?= substr($texteLong, 0, 10) ?>
 /**
 
 1. Créer une page qui s'affiche dans votre navigateur avec l'URL suivante : localhost/devine
