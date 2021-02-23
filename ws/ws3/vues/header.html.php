@@ -11,7 +11,7 @@
 
 <body>
     <div class="container-fluid p-0">
-        <nav class="navbar navbar-light navbar-expand-xl " style="background-color: #ffc324;">
+        <nav class="navbar navbar-light navbar-expand-xl " style="background-color: #5bc0de;">
             <a class="navbar-brand" href="index.php">Consession Voitures</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -66,13 +66,13 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="uploads/bg.jpg" class="d-block w-100"  alt="banner">
+                    <img src="uploads/bg.jpg" class="d-block w-100" alt="banner">
                 </div>
                 <div class="carousel-item">
                     <img src="uploads/v1.png" class="d-block w-100" alt="banner">
                 </div>
                 <div class="carousel-item">
-                    <img src="uploads/v2.png" class="d-block w-100"  alt="banner">
+                    <img src="uploads/v2.png" class="d-block w-100" alt="banner">
                 </div>
                 <div class="carousel-item">
                     <img src="uploads/v3.png" class="d-block w-100" alt="banner">

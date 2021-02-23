@@ -6,7 +6,7 @@ if ($_POST) {
 
     if (!empty($marque) && !empty($kilometrage) && !empty($tarif)) {
         if (strlen($marque) > 15) {
-            $_SESSION["messages"]["danger"][] = "Le marque ne doit pas dépasser 20 caractères";
+            $_SESSION["messages"]["danger"][] = "Le marque ne doit pas dépasser 15 caractères";
         }
         if ($kilometrage >= 1 && $kilometrage <= 6) {
             $_SESSION["messages"]["danger"][] = "Kilometrage doit comporter entre 1 et 6 caractères";
@@ -25,6 +25,18 @@ if ($_POST) {
                     $photo = $fileName;
                 } else {
                     $_SESSION["messages"]["danger"][] = "Erreur lors de l'enregistrement de l'image";
+                }
+            }
+            if (!empty($_FILES["fiche"]["name"])) {
+                $ficheName = uniqid() . $_FILES["fiche"]["name"];
+                $tempFile = $_FILES["fiche"]["tmp_name"];
+                $uploadFicheFolder = __DIR__ . "/uploads";
+                $ficheMove = copy($tempFile, $uploadFicheFolder . "/" . $ficheName);
+                if ($ficheMove) {
+                    $_SESSION["messages"]["success"][] = "Le fiche a bien été uploadée";
+                    $fiche = $ficheName;
+                } else {
+                    $_SESSION["messages"]["danger"][] = "Erreur lors de l'enregistrement du fiche";
                 }
             }
             $pdostatement = $pdo->prepare("INSERT INTO voitures (marque, kilometrage, tarif, photo, fiche) VALUES (:marque, :kilometrage, :tarif, :photo, :fiche)");

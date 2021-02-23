@@ -1,29 +1,70 @@
 <?php
 include "includes/init.inc.php";
-if( !isAbonne() ){
+if (!isAbonne()) {
     $_SESSION["messages"]["danger"][] = "Accès interdit !";
     redirection("index.php");
 }
 
 
-if( !empty($_GET["id"]) ){
+if (!empty($_GET["id"])) {
     extract($_GET);
     $pdostatement = $pdo->prepare("SELECT * FROM voitures WHERE id = :id");
     $pdostatement->bindValue(":id", $id);
     $resultat = $pdostatement->execute();
-    if( $resultat && $pdostatement->rowCount() == 1 ){
+    if ($resultat && $pdostatement->rowCount() == 1) {
         $voiture = $pdostatement->fetch(PDO::FETCH_ASSOC);
-        if( $_POST ){
+        if ($_POST) {
             extract($_POST);
-            if( !empty($marque && $kilometrage && $tarif) ){
-                if( strlen($marque) >= 3 && strlen($marque) <= 30 ){
-                    $texteRequete = "UPDATE voitures SET marque = :marque";
-                    if(strlen($kilometrage && $tarif )>= 1){
-                        $texteRequete = "UPDATE voitures SET kilometrage = :kilometrage, tarif = :tarif, photo = :photo, fiche = :fiche";
+
+            if (!empty($marque && $kilometrage && $tarif)) {
+                if (strlen($marque) >= 3 && strlen($marque) <= 30) {
+
+                    //if the phot is not modified this function will keep the last uploaded photo
+                    if (!empty($photo_actuelle)) {
+                        $photo = $photo_actuelle;
+                    }
+                    if (!empty($_FILES["photo"]["name"])) {
+                        $fileName = uniqid() . $_FILES["photo"]["name"];
+                        $tempFile = $_FILES["photo"]["tmp_name"];
+                        $uploadFolder = __DIR__ . "/uploads";
+                        $fileMove = copy($tempFile, $uploadFolder . "/" . $fileName);
+                        if ($fileMove) {
+                            $_SESSION["messages"]["success"][] = "L'image a bien été uploadée";
+                            $photo = $fileName;
+                        } else {
+                            $_SESSION["messages"]["danger"][] = "Erreur lors de l'enregistrement de l'image";
+                        }
                     }
 
-                    $texteRequete .= " WHERE id = :id";
-                    $pdostatement = $pdo->prepare($texteRequete);
+                    //if the fiche is not modified this function will keep the last uploaded fiche
+
+                    if (!empty($fiche_actuelle)) {
+                        $fiche = $fiche_actuelle;
+                    }
+                    if (!empty($_FILES["fiche"]["name"])) {
+                        $ficheName = uniqid() . $_FILES["fiche"]["name"];
+                        $tempFile = $_FILES["fiche"]["tmp_name"];
+                        $uploadFicheFolder = __DIR__ . "/uploads";
+                        $ficheMove = copy($tempFile, $uploadFicheFolder . "/" . $ficheName);
+                        if ($ficheMove) {
+                            $_SESSION["messages"]["success"][] = "Le fiche a bien été uploadée";
+                            $fiche = $ficheName;
+                        } else {
+                            $_SESSION["messages"]["danger"][] = "Erreur lors de l'enregistrement du fiche";
+                        }
+                    }
+
+                    $sqlRequete = "UPDATE voitures SET marque = :marque";
+                    if (($kilometrage && $tarif) >= 1) {
+                        $sqlRequete .= ", kilometrage = :kilometrage, tarif = :tarif";
+                    }
+                    $sqlRequete .= ", photo = :photo";
+                    $sqlRequete .= ", fiche = :fiche";
+                    $sqlRequete .= " WHERE id = :id;";
+
+                    // dd($texteRequete);
+                    $pdostatement = $pdo->prepare($sqlRequete);
+
                     $pdostatement->bindValue(":marque", $marque);
                     $pdostatement->bindValue(":kilometrage", $kilometrage);
                     $pdostatement->bindValue(":tarif", $tarif);
@@ -31,8 +72,8 @@ if( !empty($_GET["id"]) ){
                     $pdostatement->bindValue(":fiche", $fiche);
                     $pdostatement->bindValue(":id", $id);
                     $resultat = $pdostatement->execute();
-                    if($resultat ){
-                        $msgSucces = "L'annonce n°$id a bien été modifié";
+                    if ($resultat) {
+                        $msgSucces = "L'annonce $marque a bien été modifié";
                         $_SESSION["messages"]["success"][] = $msgSucces;
                         header("Location: gestion_voitures.php");
                         exit;
@@ -50,7 +91,6 @@ if( !empty($_GET["id"]) ){
             }
         }
     }
-
 } else {
     echo "erreur 404 !";
     exit;

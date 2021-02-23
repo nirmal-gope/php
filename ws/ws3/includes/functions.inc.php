@@ -41,3 +41,15 @@ function isAbonne()
 }
 
 
+function dd($variable)
+{
+    // Dump and die
+    dump($variable);
+    exit;
+}
+function dump($variable)
+{
+    echo "<pre>";
+    var_dump($variable);
+    echo "</pre>";
+}
