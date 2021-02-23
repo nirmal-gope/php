@@ -62,7 +62,7 @@
 
             <li class="nav-item">
               <a class="nav-link" href="profil.php">
-                <?= $abonneConnecte["pseudo"] ?>
+                <?= $abonneConnecte['pseudo']; ?>
               </a>
             </li>
             <li class="nav-item">
@@ -84,14 +84,14 @@
     </nav>
 
     <?php
-    if (isset($_SESSION["messages"])) {
-      foreach ($_SESSION["messages"] as $type => $messages) {
+    if (isset($_SESSION['messages'])) {
+      foreach ($_SESSION['messages'] as $type => $messages) {
         foreach ($messages as $msg) {
           echo "<div class='alert alert-$type alert-dismissible fade show' role='alert'>$msg
-                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                        <span aria-hidden='true'>&times;</span>
-                        </button>
-                        </div>";
+          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+          <span aria-hidden='true'>&times;</span>
+          </button>
+          </div>";
         }
       }
     }
@@ -100,5 +100,5 @@
     La fonction unset détruit une variable. Si on met une variable array avec un indice, seul cet indice est
     supprimé. Par exemple unset($tableau[2]) ne détruit que la 3ième valeur de $tableau.
   */
-    unset($_SESSION["messages"]);
+    unset($_SESSION['messages']);
     ?>

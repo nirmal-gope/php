@@ -30,7 +30,7 @@
         <select name="statut" id="statut" class="form-control">
             <option>choisir</option>
             <option value=10 <?= !empty($membre) && $membre["statut"] == 10 ? 'selected' : ''; ?>>Abonne</option>
-            <option value=30 <?= !empty($membre) && $membre["statut"] == 10 ? 'selected' : ''; ?>>Vendeur</option>
+            <option value=30 <?= !empty($membre) && $membre["statut"] == 30 ? 'selected' : ''; ?>>Vendeur</option>
         </select>
     </div>
 

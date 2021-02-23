@@ -18,24 +18,18 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="ajouter_voiture.php">Publier une annonce</a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="gestion_voitures.php">Gestion des voitures</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="gestion_membres.php">Gestion des membres</a>
                     </li>
+                    <li class="nav-item">
+                            <a class="nav-link" href="<?=(isConnected())? "ajouter_voiture.php" : "connexion.php"?>">Publier une annonce</a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="inscription.php">Inscription</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
                     <?php if ($abonneConnecte = isConnected()) : ?>
-
                         <li class="nav-item">
                             <a class="nav-link" href="profil.php">
                                 <?= $abonneConnecte["pseudo"] ?>
@@ -48,12 +42,17 @@
                         </li>
 
                     <?php else : ?>
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="inscription.php">Inscription</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="connexion.php">Connexion</a>
                         </li>
 
                     <?php endif; ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
                 </ul>
             </div>
         </nav>

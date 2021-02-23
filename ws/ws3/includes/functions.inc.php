@@ -33,7 +33,7 @@ function isAdmin()
 function isAbonne()
 {
     $membre = isConnected();
-    if ($membre && $membre["sattut"] = 10) {
+    if ($membre && ($membre["sattut"] = 10 && $membre["sattut"] = 30)) {
         return $membre;
     } else {
         return false;
@@ -43,7 +43,7 @@ function isAbonne()
 
 function dd($variable)
 {
-    // Dump and die
+
     dump($variable);
     exit;
 }
